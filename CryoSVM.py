@@ -5,11 +5,10 @@ from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, classification_report
 
-
-# loading the data
+# Loading the data
 CryoData = pd.read_csv('Cryotherapy.csv')
 
-# plotting the Age, Time, and Area
+# Plotting Age, Time, and Area
 plt.figure(figsize=[9,3])
 pColor = ['r','g']
 plt.subplot(131)
@@ -39,17 +38,15 @@ plt.ylabel('Area')
 plt.subplots_adjust(wspace=0.4, bottom=0.15)
 plt.show()
 
-
 # Creating a new dataset
 X = CryoData[['Age', 'Time', 'Area']].copy()
 y = np.array(CryoData.loc[:,'Success'])
 target_names = ['Success','Failure']
 
-# split the data into training and testing data
+# Split the data into training and testing data
 X_train, X_test, y_train, y_test = train_test_split(X, y,
                                                     test_size=10, 
                                                     random_state=0)
-
 # SVM fitting
 sv_train = SVC(kernel='linear', C=1.0)
 sv_train.fit(X_train,y_train)
@@ -60,5 +57,5 @@ y_pred = sv_train.predict(X_test)
 # Confusion matrix
 print(confusion_matrix(y_test,y_pred))
 
-# classification report
+# Classification report
 print(classification_report(y_test, y_pred, target_names=target_names))
